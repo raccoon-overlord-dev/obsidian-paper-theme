@@ -1,0 +1,13 @@
+{
+  "name": "paper-feel",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "python3 build.py",
+    "check": "python3 contrast.py && stylelint theme.css --max-warnings 0"
+  },
+  "devDependencies": {
+    "stylelint": "^17.0.0",
+    "stylelint-config-obsidianmd": "^0.1.0"
+  }
+}

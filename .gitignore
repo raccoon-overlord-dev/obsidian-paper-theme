@@ -1,0 +1,8 @@
+.env
+.env.*
+LOCAL-NOTES.md
+node_modules/
+design_handoff_paper_theme/
+requirements.md
+CLAUDE.md
+reference/

@@ -1,0 +1,707 @@
+/* @settings
+name: Paper feel
+id: paper-feel
+settings:
+  - id: paper-palette
+    title: Paper
+    description: Cream Ledger is warm cream paper with a colored ink per heading level. Recycled Stock is neutral grey paper that tells heading levels apart by typography.
+    type: class-select
+    allowEmpty: false
+    default: paper-palette-cream
+    options:
+      - label: Cream Ledger
+        value: paper-palette-cream
+      - label: Recycled Stock
+        value: paper-palette-recycled
+  - id: paper-texture
+    title: Paper texture
+    description: Subtle paper grain behind the editor and the sidebars. Cream Ledger only.
+    type: class-select
+    allowEmpty: false
+    default: paper-texture-on
+    options:
+      - label: "On"
+        value: paper-texture-on
+      - label: "Off"
+        value: paper-texture-off
+  - id: paper-font-heading-cream
+    title: Heading font, Cream Ledger
+    description: Font for all headings. Type the name of any font installed on your system. For body text, interface and code, use Settings > Appearance > Font.
+    type: variable-text
+    default: "Charter, Georgia, serif"
+  - id: paper-font-heading-recycled
+    title: Heading font, Recycled Stock
+    description: Font for all headings. Type the name of any font installed on your system.
+    type: variable-text
+    default: "Palatino, 'Iowan Old Style', Georgia, serif"
+*/
+
+/* Paper feel: calm paper app theme for Obsidian, light + dark.
+   Source file. Edit this, then run `python3 build.py` to generate ../theme.css. */
+
+/* ---------- Palettes ----------
+   Cream Ledger (default, no class needed) on .theme-light / .theme-dark.
+   Recycled Stock on body.paper-palette-recycled. Values from the handoff's
+   tokens.json; danger-* and success-* derived (see CLAUDE.md). */
+
+.theme-light {
+  --paper-bg: #f6f1e7;
+  --paper-side-bg: #ece5d6;
+  --paper-text: #2b2620;
+  --paper-muted: #61574b;
+  --paper-border: #d6ccb9;
+  --paper-active: #e2cfab;
+  --paper-h1: #7a2e1f;
+  --paper-h2: #7f4410;
+  --paper-h3: #4a5719;
+  --paper-h4: #1f5560;
+  --paper-link: #1f5f7a;
+  --paper-folder: #7f4410;
+  --paper-tag-bg: #e4d9c2;
+  --paper-tag: #6b4a12;
+  --paper-code: #ebe3d2;
+  --paper-note-bg: #e6ece6;
+  --paper-note-bd: #b9c9bc;
+  --paper-note-ink: #2f5a3c;
+  --paper-warn-bg: #f3e2d4;
+  --paper-warn-bd: #dcb79a;
+  --paper-warn-ink: #8a3b12;
+  --paper-danger-bg: #f7e0da;
+  --paper-danger-bd: #e2b2a7;
+  --paper-danger-ink: #7a2e1f;
+  --paper-success-bg: #e9ebe4;
+  --paper-success-bd: #c2c7b5;
+  --paper-success-ink: #4a5719;
+  /* Default accent = h2 as HSL. Obsidian's accent color setting overrides these. */
+  --paper-accent: #7f4410;
+  --accent-h: 28.1;
+  --accent-s: 77.6%;
+  --accent-l: 28%;
+  /* Ink for text on accent-colored fills. */
+  --paper-ink-dark: var(--paper-text);
+  --paper-ink-light: var(--paper-bg);
+}
+
+.theme-dark {
+  --paper-bg: #2d2620;
+  --paper-side-bg: #261f1a;
+  --paper-text: #e6dbc8;
+  --paper-muted: #b3a48d;
+  --paper-border: #463b30;
+  --paper-active: #54432f;
+  --paper-h1: #e6a88e;
+  --paper-h2: #dfbb84;
+  --paper-h3: #c1ca93;
+  --paper-h4: #a2c8c5;
+  --paper-link: #a9c4d2;
+  --paper-folder: #d6b88c;
+  --paper-tag-bg: #41362b;
+  --paper-tag: #dcc095;
+  --paper-code: #362e27;
+  --paper-note-bg: #2f3429;
+  --paper-note-bd: #4f5c4d;
+  --paper-note-ink: #b5d0b6;
+  --paper-warn-bg: #41352b;
+  --paper-warn-bd: #665140;
+  --paper-warn-ink: #e6b998;
+  --paper-danger-bg: #43342e;
+  --paper-danger-bd: #694f44;
+  --paper-danger-ink: #efa484;
+  --paper-success-bg: #313328;
+  --paper-success-bd: #575a48;
+  --paper-success-ink: #c1ca93;
+  --paper-accent: #dfbb84;
+  --accent-h: 36.3;
+  --accent-s: 58.7%;
+  --accent-l: 69.6%;
+  --paper-ink-dark: var(--paper-bg);
+  --paper-ink-light: var(--paper-text);
+}
+
+body.paper-palette-recycled.theme-light {
+  --paper-bg: #eeece7;
+  --paper-side-bg: #e3e0da;
+  --paper-text: #262524;
+  --paper-muted: #5d5a55;
+  --paper-border: #cfcbc3;
+  --paper-active: #cbc5b9;
+  --paper-h1: #262524;
+  --paper-h2: #262524;
+  --paper-h3: #3f3d3a;
+  --paper-h4: #5d5a55;
+  --paper-link: #3a5a6e;
+  --paper-folder: #262524;
+  --paper-tag-bg: #dedad2;
+  --paper-tag: #3f3d3a;
+  --paper-code: #e5e2dc;
+  --paper-note-bg: #e4e6e2;
+  --paper-note-bd: #bcc2bb;
+  --paper-note-ink: #34503d;
+  --paper-warn-bg: #eee1d6;
+  --paper-warn-bd: #cfb29a;
+  --paper-warn-ink: #7c3d17;
+  --paper-danger-bg: #f1dfdc;
+  --paper-danger-bd: #d5ada8;
+  --paper-danger-ink: #7b342e;
+  --paper-success-bg: #e7e5e1;
+  --paper-success-bd: #c4bfb8;
+  --paper-success-ink: #3f3d3a;
+  /* Default accent = link as HSL. */
+  --paper-accent: #3a5a6e;
+  --accent-h: 203.1;
+  --accent-s: 31%;
+  --accent-l: 32.9%;
+}
+
+body.paper-palette-recycled.theme-dark {
+  --paper-bg: #222221;
+  --paper-side-bg: #1b1b1a;
+  --paper-text: #e2e0dc;
+  --paper-muted: #a29f99;
+  --paper-border: #3a3936;
+  --paper-active: #43413d;
+  --paper-h1: #f0eeea;
+  --paper-h2: #e2e0dc;
+  --paper-h3: #c9c6c0;
+  --paper-h4: #a29f99;
+  --paper-link: #9cc0d6;
+  --paper-folder: #e2e0dc;
+  --paper-tag-bg: #302f2d;
+  --paper-tag: #c9c6c0;
+  --paper-code: #2a2a28;
+  --paper-note-bg: #232825;
+  --paper-note-bd: #3c4a40;
+  --paper-note-ink: #a6cdb1;
+  --paper-warn-bg: #2e2621;
+  --paper-warn-bd: #574233;
+  --paper-warn-ink: #e8b48e;
+  --paper-danger-bg: #2f2523;
+  --paper-danger-bd: #5a4039;
+  --paper-danger-ink: #f9a994;
+  --paper-success-bg: #292622;
+  --paper-success-bd: #4c4537;
+  --paper-success-ink: #c9c6c0;
+  --paper-accent: #9cc0d6;
+  --accent-h: 202.8;
+  --accent-s: 41.4%;
+  --accent-l: 72.5%;
+}
+
+/* Icons per palette: build.py turns each paper-svg call (icon name, color token) into a
+   data: URI with the token's color baked in (CSS can't recolor a background SVG). */
+.theme-light {
+  --paper-icon-folder: url("data:image/svg+xml,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' width='17' height='14' viewBox='0 0 17 14'%3E%3Crect x='0' y='0' width='8' height='6' rx='2.5' fill='%237f4410' fill-opacity='.55'/%3E%3Crect x='0' y='2.5' width='17' height='11.5' rx='3.5' fill='%237f4410'/%3E%3C/svg%3E");
+  --paper-icon-note: url("data:image/svg+xml,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' width='12' height='14' viewBox='0 0 12 14'%3E%3Crect x='.9' y='.9' width='10.2' height='12.2' rx='3.2' fill='%2361574b' fill-opacity='.12' stroke='%2361574b' stroke-width='1.6'/%3E%3Crect x='3.4' y='4.4' width='5.2' height='1.5' rx='.75' fill='%2361574b'/%3E%3Crect x='3.4' y='7.6' width='3.6' height='1.5' rx='.75' fill='%2361574b'/%3E%3C/svg%3E");
+  --paper-icon-note-active: url("data:image/svg+xml,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' width='12' height='14' viewBox='0 0 12 14'%3E%3Crect x='.9' y='.9' width='10.2' height='12.2' rx='3.2' fill='%232b2620' fill-opacity='.12' stroke='%232b2620' stroke-width='1.6'/%3E%3Crect x='3.4' y='4.4' width='5.2' height='1.5' rx='.75' fill='%232b2620'/%3E%3Crect x='3.4' y='7.6' width='3.6' height='1.5' rx='.75' fill='%232b2620'/%3E%3C/svg%3E");
+  --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .28 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.theme-dark {
+  --paper-icon-folder: url("data:image/svg+xml,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' width='17' height='14' viewBox='0 0 17 14'%3E%3Crect x='0' y='0' width='8' height='6' rx='2.5' fill='%23d6b88c' fill-opacity='.55'/%3E%3Crect x='0' y='2.5' width='17' height='11.5' rx='3.5' fill='%23d6b88c'/%3E%3C/svg%3E");
+  --paper-icon-note: url("data:image/svg+xml,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' width='12' height='14' viewBox='0 0 12 14'%3E%3Crect x='.9' y='.9' width='10.2' height='12.2' rx='3.2' fill='%23b3a48d' fill-opacity='.12' stroke='%23b3a48d' stroke-width='1.6'/%3E%3Crect x='3.4' y='4.4' width='5.2' height='1.5' rx='.75' fill='%23b3a48d'/%3E%3Crect x='3.4' y='7.6' width='3.6' height='1.5' rx='.75' fill='%23b3a48d'/%3E%3C/svg%3E");
+  --paper-icon-note-active: url("data:image/svg+xml,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' width='12' height='14' viewBox='0 0 12 14'%3E%3Crect x='.9' y='.9' width='10.2' height='12.2' rx='3.2' fill='%23e6dbc8' fill-opacity='.12' stroke='%23e6dbc8' stroke-width='1.6'/%3E%3Crect x='3.4' y='4.4' width='5.2' height='1.5' rx='.75' fill='%23e6dbc8'/%3E%3Crect x='3.4' y='7.6' width='3.6' height='1.5' rx='.75' fill='%23e6dbc8'/%3E%3C/svg%3E");
+  --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .38 0 0 0 0 .28 0 0 0 .2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+body.paper-palette-recycled.theme-light {
+  --paper-icon-folder: url("data:image/svg+xml,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' width='17' height='14' viewBox='0 0 17 14'%3E%3Crect x='0' y='0' width='8' height='6' rx='2.5' fill='%23262524' fill-opacity='.55'/%3E%3Crect x='0' y='2.5' width='17' height='11.5' rx='3.5' fill='%23262524'/%3E%3C/svg%3E");
+  --paper-icon-note: url("data:image/svg+xml,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' width='12' height='14' viewBox='0 0 12 14'%3E%3Crect x='.9' y='.9' width='10.2' height='12.2' rx='3.2' fill='%235d5a55' fill-opacity='.12' stroke='%235d5a55' stroke-width='1.6'/%3E%3Crect x='3.4' y='4.4' width='5.2' height='1.5' rx='.75' fill='%235d5a55'/%3E%3Crect x='3.4' y='7.6' width='3.6' height='1.5' rx='.75' fill='%235d5a55'/%3E%3C/svg%3E");
+  --paper-icon-note-active: url("data:image/svg+xml,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' width='12' height='14' viewBox='0 0 12 14'%3E%3Crect x='.9' y='.9' width='10.2' height='12.2' rx='3.2' fill='%23262524' fill-opacity='.12' stroke='%23262524' stroke-width='1.6'/%3E%3Crect x='3.4' y='4.4' width='5.2' height='1.5' rx='.75' fill='%23262524'/%3E%3Crect x='3.4' y='7.6' width='3.6' height='1.5' rx='.75' fill='%23262524'/%3E%3C/svg%3E");
+}
+
+body.paper-palette-recycled.theme-dark {
+  --paper-icon-folder: url("data:image/svg+xml,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' width='17' height='14' viewBox='0 0 17 14'%3E%3Crect x='0' y='0' width='8' height='6' rx='2.5' fill='%23e2e0dc' fill-opacity='.55'/%3E%3Crect x='0' y='2.5' width='17' height='11.5' rx='3.5' fill='%23e2e0dc'/%3E%3C/svg%3E");
+  --paper-icon-note: url("data:image/svg+xml,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' width='12' height='14' viewBox='0 0 12 14'%3E%3Crect x='.9' y='.9' width='10.2' height='12.2' rx='3.2' fill='%23a29f99' fill-opacity='.12' stroke='%23a29f99' stroke-width='1.6'/%3E%3Crect x='3.4' y='4.4' width='5.2' height='1.5' rx='.75' fill='%23a29f99'/%3E%3Crect x='3.4' y='7.6' width='3.6' height='1.5' rx='.75' fill='%23a29f99'/%3E%3C/svg%3E");
+  --paper-icon-note-active: url("data:image/svg+xml,%3Csvg xmlns='http%3A//www.w3.org/2000/svg' width='12' height='14' viewBox='0 0 12 14'%3E%3Crect x='.9' y='.9' width='10.2' height='12.2' rx='3.2' fill='%23e2e0dc' fill-opacity='.12' stroke='%23e2e0dc' stroke-width='1.6'/%3E%3Crect x='3.4' y='4.4' width='5.2' height='1.5' rx='.75' fill='%23e2e0dc'/%3E%3Crect x='3.4' y='7.6' width='3.6' height='1.5' rx='.75' fill='%23e2e0dc'/%3E%3C/svg%3E");
+}
+
+/* ---------- Obsidian variables (same mapping for every palette) ---------- */
+
+.theme-light,
+.theme-dark {
+  --paper-faint: color-mix(in oklch, var(--paper-muted) 70%, var(--paper-bg));
+
+  /* Paper ramp: Obsidian derives form fields, buttons, modals, hover borders
+     and other unmapped UI from these, so they step from bg toward text. */
+  --color-base-00: var(--paper-bg);
+  --color-base-05: color-mix(in oklch, var(--paper-text) 2%, var(--paper-bg));
+  --color-base-10: color-mix(in oklch, var(--paper-text) 3%, var(--paper-bg));
+  --color-base-20: var(--paper-side-bg);
+  --color-base-25: color-mix(in oklch, var(--paper-text) 8%, var(--paper-bg));
+  --color-base-30: var(--paper-border);
+  --color-base-35: color-mix(in oklch, var(--paper-text) 18%, var(--paper-bg));
+  --color-base-40: color-mix(in oklch, var(--paper-text) 30%, var(--paper-bg));
+  --color-base-50: var(--paper-faint);
+  --color-base-60: color-mix(in oklch, var(--paper-text) 65%, var(--paper-bg));
+  --color-base-70: var(--paper-muted);
+  --color-base-100: var(--paper-text);
+
+  --background-primary: var(--paper-bg);
+  --background-primary-alt: var(--paper-side-bg);
+  --background-secondary: var(--paper-side-bg);
+  --background-secondary-alt: color-mix(in oklch, var(--paper-text) 4%, var(--paper-side-bg));
+  --background-modifier-border: var(--paper-border);
+  --background-modifier-hover: color-mix(in oklch, var(--paper-active) 55%, transparent);
+  --background-modifier-form-field: var(--paper-side-bg);
+  --divider-color: var(--paper-border);
+
+  --text-normal: var(--paper-text);
+  --text-muted: var(--paper-muted);
+  --text-faint: var(--paper-faint);
+
+  /* Accent: follows Obsidian's accent color setting. Obsidian lightens
+     --color-accent-1/2 for text; keep the accent itself. */
+  --color-accent: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
+  --color-accent-1: var(--color-accent);
+  --color-accent-2: color-mix(in oklch, var(--color-accent) 85%, var(--paper-text));
+  --text-accent: var(--color-accent);
+  --text-accent-hover: var(--color-accent-2);
+  --interactive-accent: var(--color-accent);
+  --interactive-accent-hover: var(--color-accent-2);
+  /* Ink picked from the accent's lightness: above 55% dark ink, below light ink. */
+  --text-on-accent: color-mix(in srgb, var(--paper-ink-dark) clamp(0%, calc((var(--accent-l) - 55%) * 100), 100%), var(--paper-ink-light));
+  --text-on-accent-inverted: var(--paper-ink-dark);
+
+  /* Chrome */
+  --titlebar-background: var(--paper-side-bg);
+  --titlebar-background-focused: var(--paper-side-bg);
+  --ribbon-background: var(--paper-side-bg);
+  --ribbon-background-collapsed: var(--paper-side-bg);
+  --tab-container-background: var(--paper-side-bg);
+  --tab-background-active: var(--paper-bg);
+  --tab-outline-color: var(--paper-border);
+  --status-bar-background: var(--paper-side-bg);
+  --status-bar-border-color: var(--paper-border);
+  --status-bar-text-color: var(--paper-faint);
+
+  /* Nav lists (explorer, outline, bookmarks) */
+  --nav-item-color: var(--paper-muted);
+  --nav-item-color-hover: var(--paper-text);
+  --nav-item-color-active: var(--paper-text);
+  --nav-item-background-hover: color-mix(in oklch, var(--paper-active) 55%, transparent);
+  --nav-item-background-active: var(--paper-active);
+
+  /* Headings: H5 shares the H4 ink, H6 is muted. */
+  --h1-color: var(--paper-h1);
+  --h2-color: var(--paper-h2);
+  --h3-color: var(--paper-h3);
+  --h4-color: var(--paper-h4);
+  --h5-color: var(--paper-h4);
+  --h6-color: var(--paper-muted);
+
+  /* Links: unresolved ones are muted with a dotted underline. */
+  --link-color: var(--paper-link);
+  --link-color-hover: var(--paper-link);
+  --link-external-color: var(--paper-link);
+  --link-external-color-hover: var(--paper-link);
+  --link-unresolved-color: var(--paper-muted);
+  --link-unresolved-decoration-color: var(--paper-muted);
+
+  /* Tags */
+  --tag-color: var(--paper-tag);
+  --tag-color-hover: var(--paper-tag);
+  --tag-background: var(--paper-tag-bg);
+  --tag-background-hover: color-mix(in oklch, var(--paper-tag) 10%, var(--paper-tag-bg));
+
+  /* Code: keyword = h2, string = h3, comment = muted italic. */
+  --code-background: var(--paper-code);
+  --code-border-color: var(--paper-border);
+  --code-normal: var(--paper-text);
+  --code-comment: var(--paper-muted);
+  --code-keyword: var(--paper-h2);
+  --code-string: var(--paper-h3);
+  --code-function: var(--paper-h4);
+  --code-property: var(--paper-h4);
+  --code-value: var(--paper-h1);
+  --code-important: var(--paper-h1);
+  --code-tag: var(--paper-h2);
+  --code-operator: var(--paper-text);
+  --code-punctuation: var(--paper-muted);
+
+  /* Highlights, quotes, rules, bullets, checklists, inputs */
+  --text-highlight-bg: var(--paper-tag-bg);
+  --blockquote-border-color: var(--paper-border);
+  --blockquote-color: var(--paper-muted);
+  --hr-color: var(--paper-border);
+  --list-marker-color: var(--paper-muted);
+  --checklist-done-color: var(--paper-muted);
+  --input-placeholder-color: var(--paper-muted);
+
+  /* Callouts: title and icon ink per group (info, warning, danger, success).
+     Full colors (Obsidian 1.14+ format); the .callout rules below keep older
+     versions, which expect an RGB triplet, rendering correctly. */
+  --callout-default: var(--paper-note-ink);
+  --callout-info: var(--paper-note-ink);
+  --callout-todo: var(--paper-note-ink);
+  --callout-summary: var(--paper-note-ink);
+  --callout-example: var(--paper-note-ink);
+  --callout-quote: var(--paper-note-ink);
+  --callout-warning: var(--paper-warn-ink);
+  --callout-question: var(--paper-warn-ink);
+  --callout-fail: var(--paper-danger-ink);
+  --callout-error: var(--paper-danger-ink);
+  --callout-bug: var(--paper-danger-ink);
+  --callout-tip: var(--paper-success-ink);
+  --callout-important: var(--paper-success-ink);
+  --callout-success: var(--paper-success-ink);
+}
+
+/* ---------- Typography ----------
+   Fonts are not embedded (size budget): these are used when installed, otherwise
+   the next font in the stack. Settings > Appearance > Font overrides body,
+   interface and code fonts; Style Settings overrides the heading font.
+   Sizes are em of the body size (the mock's px at its 15px body). */
+
+body {
+  --font-text-theme: Charter, "Iowan Old Style", Georgia, serif;
+  --font-interface-theme: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-monospace-theme: Menlo, monospace;
+  --paper-font-heading-cream: Charter, Georgia, serif;
+  --paper-font-heading-recycled: Palatino, "Iowan Old Style", Georgia, serif;
+  --paper-font-heading: var(--paper-font-heading-cream);
+  --line-height-normal: 1.6;
+  --paper-heading-scale: 1;
+
+  --h1-font: var(--paper-font-heading);
+  --h2-font: var(--paper-font-heading);
+  --h3-font: var(--paper-font-heading);
+  --h4-font: var(--paper-font-heading);
+  --h5-font: var(--paper-font-heading);
+  --h6-font: var(--paper-font-heading);
+  --h1-line-height: 1.2;
+  --h2-line-height: 1.3;
+  --h3-line-height: 1.3;
+  --h4-line-height: 1.3;
+  --h5-line-height: 1.3;
+  --h6-line-height: 1.3;
+
+  /* Cream Ledger: every level has its own ink; weight, italics and caps on top. */
+  --h1-size: calc(var(--paper-heading-scale) * 2em);
+  --h2-size: calc(var(--paper-heading-scale) * 1.533em);
+  --h3-size: calc(var(--paper-heading-scale) * 1.267em);
+  --h4-size: calc(var(--paper-heading-scale) * 1em);
+  --h5-size: calc(var(--paper-heading-scale) * 0.933em);
+  --h6-size: calc(var(--paper-heading-scale) * 0.867em);
+  --h1-weight: 700;
+  --h2-weight: 700;
+  --h3-weight: 600;
+  --h4-weight: 700;
+  --h5-weight: 700;
+  --h6-weight: 600;
+  --h1-style: normal;
+  --h2-style: normal;
+  --h3-style: italic;
+  --h4-style: normal;
+  --h5-style: italic;
+  --h6-style: normal;
+  --h1-letter-spacing: 0;
+  --h2-letter-spacing: 0;
+  --h3-letter-spacing: 0;
+  --h4-letter-spacing: 0.08em;
+  --h5-letter-spacing: 0;
+  --h6-letter-spacing: 0;
+  --paper-h1-rule: 1px solid var(--paper-h1);
+  --paper-h2-rule: none;
+  --paper-h2-transform: none;
+  --paper-h4-transform: uppercase;
+  --paper-h5-transform: none;
+
+  /* Links, tags */
+  --link-decoration: underline;
+  --link-decoration-hover: underline;
+  --link-external-decoration: underline;
+  --link-external-decoration-hover: underline;
+  --link-unresolved-opacity: 1;
+  --link-unresolved-decoration-style: dotted;
+  --tag-radius: 10px;
+  --tag-padding-x: 8px;
+  --tag-padding-y: 1px;
+  --tag-size: 0.8em;
+
+  /* Code blocks: 12px, 1px border, 6px radius; inline code overrides below. */
+  --code-size: 0.8em;
+  --code-radius: 6px;
+  --code-border-width: 1px;
+
+  /* Blockquotes, checklists, rules, inputs */
+  --blockquote-border-thickness: 3px;
+  --blockquote-font-style: italic;
+  --blockquote-style: italic;
+  --checklist-done-decoration: line-through;
+  --hr-thickness: 1px;
+  --input-radius: 5px;
+
+  /* Callouts: tinted bg, 1px border, 6px radius, bold sans title. */
+  --callout-radius: 6px;
+  --callout-padding: 8px 12px;
+  --callout-border-width: 1px;
+  --callout-title-weight: 700;
+  --callout-blend-mode: normal;
+}
+
+/* Recycled Stock: near-monochrome, levels told apart by rules, caps and italics. */
+body.paper-palette-recycled {
+  --font-text-theme: "Iowan Old Style", Palatino, Georgia, serif;
+  --paper-font-heading: var(--paper-font-heading-recycled);
+  --h1-size: calc(var(--paper-heading-scale) * 2.133em);
+  --h2-size: calc(var(--paper-heading-scale) * 1.333em);
+  --h4-size: calc(var(--paper-heading-scale) * 0.933em);
+  --h1-weight: 400;
+  --h3-weight: 400;
+  --h5-weight: 400;
+  --h6-weight: 400;
+  --h5-style: normal;
+  --h6-style: italic;
+  --h1-letter-spacing: 0.01em;
+  --h2-letter-spacing: 0.1em;
+  --h4-letter-spacing: 0.04em;
+  --h5-letter-spacing: 0.08em;
+  --paper-h1-rule: 3px double var(--paper-h1);
+  --paper-h2-rule: 1px solid var(--paper-border);
+  --paper-h2-transform: uppercase;
+  --paper-h4-transform: none;
+  --paper-h5-transform: uppercase;
+}
+
+/* ---------- Headings ----------
+   Size, weight, style and color go through Obsidian's --hN-* variables (reading
+   view and Live Preview). Rules and caps need selectors. */
+
+.markdown-rendered h1,
+.inline-title,
+.HyperMD-header-1 {
+  padding-bottom: 4px;
+  border-bottom: var(--paper-h1-rule);
+}
+
+.markdown-rendered h2,
+.HyperMD-header-2 {
+  border-bottom: var(--paper-h2-rule);
+  text-transform: var(--paper-h2-transform);
+}
+
+.markdown-rendered h4,
+.HyperMD-header-4 {
+  text-transform: var(--paper-h4-transform);
+}
+
+.markdown-rendered h5,
+.HyperMD-header-5 {
+  text-transform: var(--paper-h5-transform);
+}
+
+/* ---------- Links, tags ---------- */
+
+.markdown-rendered a,
+.cm-s-obsidian .cm-underline,
+.cm-s-obsidian .cm-url {
+  text-underline-offset: 3px;
+}
+
+.markdown-rendered a.tag,
+.cm-s-obsidian .cm-hashtag {
+  font-family: var(--font-interface);
+}
+
+/* ---------- Code ---------- */
+
+/* Inline code: 3px radius, no border, 13px. Setting Obsidian's variables on the
+   element keeps its own rules working. */
+.markdown-rendered :not(pre) > code,
+.cm-s-obsidian span.cm-inline-code {
+  --code-radius: 3px;
+  --code-border-width: 0px;
+  --code-size: 0.867em;
+}
+
+.markdown-rendered :not(pre) > code {
+  padding: 1px 5px;
+}
+
+.markdown-rendered pre {
+  padding: 8px 12px;
+}
+
+/* Comments in code: italic. */
+.cm-s-obsidian .HyperMD-codeblock .cm-comment,
+.markdown-rendered .token.comment {
+  font-style: italic;
+}
+
+/* ---------- %% Comments %% (editor only; reading view hides them) ----------
+   Muted italic in a 1px dashed box. Obsidian splits a comment into %% start,
+   text and %% end spans: top and bottom edges go on every span, the side
+   edges on the start and end spans, so they join into one box. */
+.cm-s-obsidian .cm-line:not(.HyperMD-codeblock) .cm-comment {
+  font-style: italic;
+  color: var(--paper-muted);
+  padding-block: 1px;
+  border-block: 1px dashed var(--paper-border);
+}
+
+.cm-s-obsidian .cm-line:not(.HyperMD-codeblock) .cm-comment-start {
+  padding-inline-start: 6px;
+  border-inline-start: 1px dashed var(--paper-border);
+  border-start-start-radius: 4px;
+  border-end-start-radius: 4px;
+}
+
+.cm-s-obsidian .cm-line:not(.HyperMD-codeblock) .cm-comment-end {
+  padding-inline-end: 6px;
+  border-inline-end: 1px dashed var(--paper-border);
+  border-start-end-radius: 4px;
+  border-end-end-radius: 4px;
+}
+
+/* ---------- Callouts ----------
+   Four groups, each with its own tinted background, border and ink:
+   info (note, abstract, info, todo, example, quote and unknown types),
+   warning (warning, question), danger (failure, danger, bug),
+   success (tip, important, success). Aliases follow their type. */
+
+.callout {
+  --paper-callout-bg: var(--paper-note-bg);
+  --paper-callout-bd: var(--paper-note-bd);
+  background-color: var(--paper-callout-bg);
+  border-color: var(--paper-callout-bd);
+}
+
+.callout:is([data-callout="warning"], [data-callout="caution"], [data-callout="attention"], [data-callout="question"], [data-callout="help"], [data-callout="faq"]) {
+  --paper-callout-bg: var(--paper-warn-bg);
+  --paper-callout-bd: var(--paper-warn-bd);
+}
+
+.callout:is([data-callout="failure"], [data-callout="fail"], [data-callout="missing"], [data-callout="danger"], [data-callout="error"], [data-callout="bug"]) {
+  --paper-callout-bg: var(--paper-danger-bg);
+  --paper-callout-bd: var(--paper-danger-bd);
+}
+
+.callout:is([data-callout="tip"], [data-callout="hint"], [data-callout="important"], [data-callout="success"], [data-callout="check"], [data-callout="done"]) {
+  --paper-callout-bg: var(--paper-success-bg);
+  --paper-callout-bd: var(--paper-success-bd);
+}
+
+.callout-title {
+  font-family: var(--font-interface);
+}
+
+.callout-title,
+.callout-icon .svg-icon {
+  color: var(--callout-color);
+}
+
+/* ---------- File explorer ----------
+   Folders: bold, folder ink, two-tone folder icon. Notes: muted, note icon.
+   Selected note: active bg, text ink, bold, 3px left bar in the folder ink.
+   Scoped to .nav-files-container, which only the file explorer uses, and
+   mostly through Obsidian's --nav-item-* variables so its own hover, active
+   and selected rules keep working. */
+
+.nav-files-container {
+  --nav-item-size: 13px;
+  --nav-item-radius: 0 6px 6px 0;
+  --nav-item-padding: 4px 6px 4px 22px;
+  --nav-item-parent-padding: var(--nav-item-padding);
+  --nav-item-weight-active: 700;
+  /* 14px per level, with a 1px guide line in the border color. */
+  --nav-item-children-margin-start: 7px;
+  --nav-item-children-padding-start: 7px;
+  --nav-indentation-guide-width: 1px;
+  --nav-indentation-guide-color: var(--paper-border);
+  --nav-collapse-icon-color: var(--paper-muted);
+  --nav-collapse-icon-color-collapsed: var(--paper-muted);
+}
+
+/* Right-to-left layouts mirror the padding and radius, as Obsidian does. */
+:is(.mod-rtl, .is-rtl, .rtl) .nav-files-container {
+  --nav-item-radius: 6px 0 0 6px;
+  --nav-item-padding: 4px 22px 4px 6px;
+}
+
+.nav-files-container .nav-folder-title {
+  --nav-item-color: var(--paper-folder);
+  --nav-item-color-hover: var(--paper-folder);
+  --nav-item-color-active: var(--paper-folder);
+  --nav-item-weight: 700;
+  --nav-item-weight-hover: 700;
+  --nav-item-weight-active: 700;
+  --paper-tree-icon: var(--paper-icon-folder);
+  --paper-tree-icon-width: 17px;
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
+
+.nav-files-container .nav-file-title {
+  --paper-tree-icon: var(--paper-icon-note);
+  --paper-tree-icon-width: 12px;
+}
+
+.nav-files-container .nav-file-title.is-active {
+  --paper-tree-icon: var(--paper-icon-note-active);
+  box-shadow: inset 3px 0 0 var(--paper-folder);
+}
+
+:is(.mod-rtl, .is-rtl, .rtl) .nav-files-container .nav-file-title.is-active {
+  box-shadow: inset -3px 0 0 var(--paper-folder);
+}
+
+/* Obsidian 1.5 shows the vault name as the root folder's title: no icon there. */
+.nav-files-container .nav-folder.mod-root > .nav-folder-title {
+  --nav-item-color: var(--text-normal);
+  --paper-tree-icon: none;
+  --paper-tree-icon-width: 0px;
+  margin-top: 0;
+}
+
+/* Icons, 14px tall with a 7px gap. On the row, not the title text: the text
+   element becomes contenteditable while renaming, and an icon inside it puts
+   the caret before the icon once the name is empty. Replaces Obsidian's
+   zero-width .tree-item-self::before baseline helper. */
+.nav-files-container .nav-folder-title::before,
+.nav-files-container .nav-file-title::before {
+  content: "";
+  flex: 0 0 auto;
+  align-self: center;
+  width: var(--paper-tree-icon-width);
+  height: 14px;
+  margin-inline-end: 7px;
+  background: var(--paper-tree-icon) center / contain no-repeat;
+}
+
+.nav-files-container .nav-folder.mod-root > .nav-folder-title::before {
+  margin-inline-end: 0;
+}
+
+/* Chevron: Obsidian's own, about 9px, in the muted ink. */
+.nav-files-container .collapse-icon svg.svg-icon {
+  width: 9px;
+  height: 9px;
+  stroke-width: 3px;
+}
+
+/* ---------- Paper texture (Cream Ledger only, default on) ----------
+   Grain tile on the elements that paint the editor and sidebar backgrounds.
+   It's a background image, so it always sits under the text. */
+body:not(.paper-palette-recycled, .paper-texture-off) :is(.workspace-split.mod-root .view-content, .workspace-leaf-content.is-read-mode .markdown-preview-view, .workspace-split:not(.mod-root) .workspace-leaf) {
+  background-image: var(--paper-grain);
+}
+
+/* ---------- Mobile (phone and tablet) ---------- */
+
+body.is-mobile {
+  --paper-heading-scale: 0.9;
+  --code-white-space: pre; /* code blocks scroll sideways instead of wrapping */
+  --file-margins-x: 20px;
+}
+
+/* Touch-size tree rows: 16px x 1.3 line-height + 2 x 12px = 44.8px; 20px indent. */
+.is-mobile .nav-files-container {
+  --nav-item-size: 16px;
+  --nav-item-padding: 12px 6px 12px 22px;
+  --nav-item-children-margin-start: 10px;
+  --nav-item-children-padding-start: 10px;
+}
+
+.is-mobile:is(.mod-rtl, .is-rtl, .rtl) .nav-files-container {
+  --nav-item-padding: 12px 22px 12px 6px;
+}

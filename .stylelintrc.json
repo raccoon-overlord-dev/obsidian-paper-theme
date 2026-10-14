@@ -1,0 +1,11 @@
+{
+  "extends": "stylelint-config-obsidianmd",
+  "rules": {
+    "comment-empty-line-before": null,
+    "custom-property-empty-line-before": null,
+    "declaration-empty-line-before": null,
+    "color-function-notation": null,
+    "value-keyword-case": null,
+    "selector-class-pattern": null
+  }
+}
