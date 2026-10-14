@@ -17,9 +17,7 @@ Light and dark follow Obsidian's own setting (Settings → Appearance → Base c
 |---|---|
 | ![Recycled Stock light](images/recycled-light-desktop.png) | ![Recycled Stock dark](images/recycled-dark-desktop.png) |
 
-Phone: ![Cream Ledger light, phone](images/cream-light-phone.png) ![Recycled Stock dark, phone](images/recycled-dark-phone.png)
-
-> These images are design mockups (the paper grain is approximated). They'll be replaced with captures from Obsidian.
+> These images are design mockups (the paper grain is approximated).
 
 ## Features
 
